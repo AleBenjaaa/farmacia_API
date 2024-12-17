@@ -6,9 +6,9 @@ from .views import medicamento_lista, cliente_lista, orden_lista, medicamento_de
 
 urlpatterns = [
     path('medicamentos/', medicamento_lista),
-    path('medicamentos/<int:pk>', medicamento_detalles),
+    path('medicamentos/<int:pk>/', medicamento_detalles),
     path('clientes/', cliente_lista),
-    path('clientes/<int:pk>', cliente_detalles),
+    path('clientes/<int:pk>/', cliente_detalles),
     path('ordenes/', orden_lista),
-    path('ordenes/<int:pk>', orden_detalles),
+    path('ordenes/<int:pk>/', orden_detalles),
 ]

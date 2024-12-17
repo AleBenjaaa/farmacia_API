@@ -17,7 +17,7 @@ def medicamento_lista(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT','PATCH', 'DELETE'])
 def medicamento_detalles(request, pk):
     try:
         medicamento = Medicamento.objects.get(pk=pk)
@@ -33,6 +33,16 @@ def medicamento_detalles(request, pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    if request.method == 'PATCH':
+        if 'stock' in request.data:
+            nuevo_stock = request.data['stock']
+            if nuevo_stock < 0:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            medicamento.stock = nuevo_stock
+            medicamento.save()
+            return Response(MedicamentoSerializer(medicamento).data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     if request.method == 'DELETE':
         medicamento.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
