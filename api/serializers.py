@@ -22,21 +22,21 @@ class OrdenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orden
         fields = ['id', 'cliente', 'fecha', 'total', 'medicamentos']
-        read_only_fields = ['total']  # El campo total será calculado automáticamente
+        read_only_fields = ['total'] 
 
     def create(self, validated_data):
-        medicamentos_data = validated_data.pop('medicamentos')  # Extraer los medicamentos
+        medicamentos_data = validated_data.pop('medicamentos') 
         total = 0
 
-        # Calcular el total de la orden
+       
         for medicamento in medicamentos_data:
             medicamento_obj = Medicamento.objects.get(id=medicamento['medicamento'].id)
             total += medicamento_obj.precio * medicamento['cantidad']
 
-        # Crear la orden con el total calculado
+   
         orden = Orden.objects.create(total=total, **validated_data)
 
-        # Crear relaciones en la tabla intermedia OrdenMedicamento
+
         for medicamento in medicamentos_data:
             OrdenMedicamento.objects.create(
                 orden=orden,
