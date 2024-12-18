@@ -28,9 +28,8 @@ def medicamento_detalles(request, pk):
 
     if request.method == 'GET':
         serializer = MedicamentoSerializer(medicamento)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+        return Response(serializer.data)
+    
     if request.method == 'PATCH':
         if 'stock' in request.data:
             nuevo_stock = request.data['stock']
