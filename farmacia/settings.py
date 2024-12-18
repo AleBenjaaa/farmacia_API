@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
-    'rest_framework',  # Para usar Django REST Framework
+    'rest_framework',
+    'rest_framework.authtoken',  # Para usar Django REST Framework
     'corsheaders',     # Para manejar CORS con React
 ]
 
@@ -138,6 +139,5 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',  
-    ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    ]
 }
