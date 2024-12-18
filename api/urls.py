@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import medicamento_lista, cliente_lista, orden_lista, medicamento_detalles, cliente_detalles, orden_detalles
+from .views import medicamento_lista, cliente_lista, orden_lista, medicamento_detalles, cliente_detalles, orden_detalles, registro, login
 
 
 
@@ -11,4 +11,6 @@ urlpatterns = [
     path('clientes/<int:pk>/', cliente_detalles),
     path('ordenes/', orden_lista),
     path('ordenes/<int:pk>/', orden_detalles),
+    path('registro/', registro),
+    path('login/', login),
 ]

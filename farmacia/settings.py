@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
-    'rest_framework',  # Para usar Django REST Framework
+    'rest_framework',
+    'rest_framework.authtoken',  # Para usar Django REST Framework
     'corsheaders',     # Para manejar CORS con React
 ]
 

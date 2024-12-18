@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Medicamento, Cliente, Orden, OrdenMedicamento
+from django.contrib.auth.models import User
 
 class MedicamentoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -7,9 +8,23 @@ class MedicamentoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ClienteSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', write_only=True)
+    password = serializers.CharField(source='user.password', write_only=True)
+
     class Meta:
         model = Cliente
-        fields = '__all__'
+        fields = ['id', 'nombre', 'email', 'telefono', 'username', 'password']
+
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = User.objects.create_user(**user_data)
+        cliente = Cliente.objects.create(user=user, **validated_data)
+        return cliente
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['username'] = instance.user.username
+        return representation
 
 class OrdenMedicamentoSerializer(serializers.ModelSerializer):
     class Meta:
