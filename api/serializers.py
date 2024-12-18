@@ -13,9 +13,6 @@ class ClienteSerializerA(serializers.ModelSerializer):
         model = Cliente
         fields = ['id', 'nombre', 'email', 'telefono']
 
-# 2 SERIALIZER PARA CLIENTE, 
-# ClienteSerializerA = sin requerimientos de obtencion
-# ClienteSerializer = requiere username y password
 class ClienteSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', write_only=True)
     password = serializers.CharField(source='user.password', write_only=True)

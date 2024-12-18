@@ -56,7 +56,6 @@ def medicamento_detalles(request, pk):
         medicamento.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# Cliente Views
 @api_view(['GET', 'POST'])
 def cliente_lista(request):
     if request.method == 'GET':
@@ -90,7 +89,6 @@ def cliente_detalles(request, pk):
         cliente.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# Orden Views
 @api_view(['GET', 'POST'])
 def orden_lista(request):
     if request.method == 'GET':
@@ -144,9 +142,8 @@ def registro(request):
 
     if serializer.is_valid():
         cliente = serializer.save()
-
-        # Crear token de autenticación
         token = Token.objects.create(user=cliente.user)
+        
         return Response({'token': token.key}, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
