@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from .models import Medicamento, Cliente, Orden
 from django.contrib.auth import authenticate
-from .serializers import MedicamentoSerializer, ClienteSerializer, OrdenSerializer
+from .serializers import MedicamentoSerializer, ClienteSerializer, ClienteSerializerA, OrdenSerializer
 
 @api_view(['GET', 'POST'])
 def medicamento_lista(request):
@@ -61,10 +61,10 @@ def medicamento_detalles(request, pk):
 def cliente_lista(request):
     if request.method == 'GET':
         clientes = Cliente.objects.all()
-        serializer = ClienteSerializer(clientes, many=True)
+        serializer = ClienteSerializerA(clientes, many=True)
         return Response(serializer.data)
     if request.method == 'POST':
-        serializer = ClienteSerializer(data=request.data)
+        serializer = ClienteSerializerA(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -78,10 +78,10 @@ def cliente_detalles(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = ClienteSerializer(cliente)
+        serializer = ClienteSerializerA(cliente)
         return Response(serializer.data)
     if request.method == 'PUT':
-        serializer = ClienteSerializer(cliente, data=request.data)
+        serializer = ClienteSerializerA(cliente, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
