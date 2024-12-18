@@ -11,7 +11,7 @@ class ClienteSerializerA(serializers.ModelSerializer):
 
     class Meta:
         model = Cliente
-        fields = '__all__'
+        fields = ['id', 'nombre', 'email', 'telefono']
 
 # 2 SERIALIZER PARA CLIENTE, 
 # ClienteSerializerA = sin requerimientos de obtencion
